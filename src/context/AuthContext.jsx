@@ -9,40 +9,25 @@ export function useAuth() {
 }
 
 export default function AuthProvider({ children }) {
+  axios.defaults.withCredentials = true;
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   async function login(arg) {
     setLoading(true);
-    const res = await axios.post(
-      "https://nnorbert09-todo.herokuapp.com/auth/login",
-      {
-        username: arg.username,
-        password: arg.password,
-      },
-      { withCredentials: true },
-      {
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    );
-    console.log(res.data);
+    const res = await axios.post("http://localhost:8080/auth/login", {
+      username: arg.username,
+      password: arg.password,
+    });
     setCurrentUser(res.data);
-    console.log(currentUser);
     setLoading(false);
   }
 
   async function logout() {
-    const res = await axios.post(
-      "https://nnorbert09-todo.herokuapp.com/auth/logout",
-      {
-        headers: {
-          access_token: "Bearer " + currentUser.token,
-        },
-      }
-    );
+    await axios.post("http://localhost:8080/auth/logout", {
+      token: currentUser.token,
+      username: currentUser.username,
+    });
     setCurrentUser(null);
   }
 
@@ -57,7 +42,6 @@ export default function AuthProvider({ children }) {
       },
       { withCredentials: true }
     );
-    console.log(res);
     setCurrentUser(res.data);
     setLoading(false);
   }
@@ -67,7 +51,6 @@ export default function AuthProvider({ children }) {
     login,
     logout,
     currentUser,
-    error,
     loading,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

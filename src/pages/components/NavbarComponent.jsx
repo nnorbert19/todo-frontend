@@ -1,35 +1,45 @@
 import React, { useState } from "react";
-import { Navbar, Offcanvas, Container, CloseButton } from "react-bootstrap";
+import "./NavbarComponent.css";
+import { useNavigate } from "react-router-dom";
+import {
+  Navbar,
+  Offcanvas,
+  Container,
+  CloseButton,
+  Button,
+} from "react-bootstrap";
 import { useAuth } from "../../context/AuthContext";
 
 function NavbarComponent() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
 
-  const handleLogout = (async) => {
+  async function handleLogout() {
     try {
-      logout();
+      await logout();
       navigate("/");
     } catch (error) {
-      console.log(error.response);
+      console.log(error);
     }
-  };
+  }
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
-  function authenticationButtons() {
-    return <button></button>;
-  }
-
   function LogoutButton() {
     return (
-      <button
-        onClick={() => {
-          handleLogout();
-        }}
-      ></button>
+      <div className="d-flex align-items-center">
+        <div className="px-3">{currentUser.username}</div>
+        <Button
+          onClick={() => {
+            handleLogout();
+          }}
+        >
+          Kijelentkezés
+        </Button>
+      </div>
     );
   }
 
@@ -39,6 +49,7 @@ function NavbarComponent() {
       collapseOnSelect="true"
       expand="md"
       className="w-100 lg Header sticky-top"
+      id="navbar"
     >
       <Container className="container" fluid>
         <Navbar.Brand className="px-2">Todo</Navbar.Brand>
@@ -60,7 +71,7 @@ function NavbarComponent() {
             <CloseButton variant="white" onClick={handleClose} />
           </Offcanvas.Header>
           <Offcanvas.Body className="flex-row-reverse">
-            {currentUser !== null ? <LogoutButton /> : "valami"}
+            {currentUser !== null ? <LogoutButton /> : ""}
           </Offcanvas.Body>
         </Navbar.Offcanvas>
       </Container>

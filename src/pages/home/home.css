@@ -1,0 +1,53 @@
+.todo-lister {
+  overflow-y: auto;
+  min-height: 30vh;
+  max-height: 55vh;
+  min-width: 60vw;
+  max-width: 1200px;
+  align-items: center;
+}
+
+.todo-items {
+  border-radius: 10px;
+  border: solid 0.1rem;
+  box-shadow: 0 4px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.new-todo-button {
+  width: 250px;
+  transform: translateY(90%);
+}
+
+details summary {
+  cursor: pointer;
+}
+
+.checkbox {
+  width: 1rem;
+  height: 1rem;
+}
+.checkbox:before,
+.checkbox:after {
+  transition: (all 0.3s ease-in-out);
+  content: "";
+  z-index: 1;
+  width: 1rem;
+  height: 1rem;
+  background: transparent;
+}
+.checkbox:after {
+  z-index: 0;
+  border: none;
+}
+
+@keyframes pop {
+  0% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
