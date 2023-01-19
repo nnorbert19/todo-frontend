@@ -16,10 +16,13 @@ export default function AuthProvider({ children }) {
 
   async function login(arg) {
     setLoading(true);
-    const res = await axios.post("http://localhost:8080/auth/login", {
-      username: arg.username,
-      password: arg.password,
-    });
+    const res = await axios.post(
+      "https://nnorbert09-todo.herokuapp.com/auth/login",
+      {
+        username: arg.username,
+        password: arg.password,
+      }
+    );
     setCurrentUser(res.data);
     setLoading(false);
   }
