@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 
 import axios from "axios";
+import Loading from "../utility/Loading";
 
 const AuthContext = React.createContext();
 
@@ -15,13 +16,10 @@ export default function AuthProvider({ children }) {
 
   async function login(arg) {
     setLoading(true);
-    const res = await axios.post(
-      "https://nnorbert09-todo.herokuapp.com/auth/login",
-      {
-        username: arg.username,
-        password: arg.password,
-      }
-    );
+    const res = await axios.post("http://localhost:8080/auth/login", {
+      username: arg.username,
+      password: arg.password,
+    });
     setCurrentUser(res.data);
     setLoading(false);
   }
@@ -56,5 +54,10 @@ export default function AuthProvider({ children }) {
     currentUser,
     loading,
   };
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+      {loading && <Loading />}
+    </AuthContext.Provider>
+  );
 }

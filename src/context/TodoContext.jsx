@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useAuth } from "./AuthContext";
 import axios from "axios";
+import Loading from "../utility/Loading";
 
 const TodoContext = React.createContext();
 
@@ -90,5 +91,10 @@ export default function TodoProvider({ children }) {
     todos,
     loading,
   };
-  return <TodoContext.Provider value={value}>{children}</TodoContext.Provider>;
+  return (
+    <TodoContext.Provider value={value}>
+      {children}
+      {loading && <Loading />}
+    </TodoContext.Provider>
+  );
 }
