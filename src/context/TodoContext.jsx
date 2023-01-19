@@ -20,7 +20,7 @@ export default function TodoProvider({ children }) {
   async function getTodos() {
     setLoading(true);
     const res = await axios.get(
-      "http://localhost:8080/todos",
+      "https://nnorbert09-todo.herokuapp.com/todos",
       {
         headers: {
           token: currentUser.token,
@@ -36,7 +36,7 @@ export default function TodoProvider({ children }) {
 
   async function createTodo(arg) {
     setLoading(true);
-    await axios.post("http://localhost:8080/todos", {
+    await axios.post("https://nnorbert09-todo.herokuapp.com/todos", {
       title: arg.title,
       description: arg?.description,
       token: currentUser.token,
@@ -47,18 +47,21 @@ export default function TodoProvider({ children }) {
 
   async function deleteTodo(arg) {
     setLoading(true);
-    await axios.delete(`http://localhost:8080/todos/${arg.id}`, {
-      headers: {
-        _id: arg.id,
-        token: currentUser.token,
-      },
-    });
+    await axios.delete(
+      `https://nnorbert09-todo.herokuapp.com/todos/${arg.id}`,
+      {
+        headers: {
+          _id: arg.id,
+          token: currentUser.token,
+        },
+      }
+    );
     setLoading(false);
   }
 
   async function updateTodo(arg) {
     setLoading(true);
-    await axios.put(`http://localhost:8080/todos/${arg.id}`, {
+    await axios.put(`https://nnorbert09-todo.herokuapp.com/todos/${arg.id}`, {
       token: currentUser.token,
       _id: arg.id,
       title: arg?.title,
@@ -69,7 +72,7 @@ export default function TodoProvider({ children }) {
 
   async function toggleTodo(arg) {
     setLoading(true);
-    await axios.put(`http://localhost:8080/todos/${arg.id}`, {
+    await axios.put(`https://nnorbert09-todo.herokuapp.com/todos/${arg.id}`, {
       _id: arg.id,
       completed: arg.completed,
       token: currentUser.token,
