@@ -21,7 +21,7 @@ export default function TodoProvider({ children }) {
   async function getTodos() {
     setLoading(true);
     const res = await axios.get(
-      "https://nnorbert09-todo.herokuapp.com/todos",
+      "https://todo-backend-v20t.onrender.com/todos",
       {
         headers: {
           token: currentUser.token,
@@ -37,7 +37,7 @@ export default function TodoProvider({ children }) {
 
   async function createTodo(arg) {
     setLoading(true);
-    await axios.post("https://nnorbert09-todo.herokuapp.com/todos", {
+    await axios.post("https://todo-backend-v20t.onrender.com/todos", {
       title: arg.title,
       description: arg?.description,
       token: currentUser.token,
@@ -49,7 +49,7 @@ export default function TodoProvider({ children }) {
   async function deleteTodo(arg) {
     setLoading(true);
     await axios.delete(
-      `https://nnorbert09-todo.herokuapp.com/todos/${arg.id}`,
+      `https://todo-backend-v20t.onrender.com/todos/${arg.id}`,
       {
         headers: {
           _id: arg.id,
@@ -62,7 +62,7 @@ export default function TodoProvider({ children }) {
 
   async function updateTodo(arg) {
     setLoading(true);
-    await axios.put(`https://nnorbert09-todo.herokuapp.com/todos/${arg.id}`, {
+    await axios.put(`https://todo-backend-v20t.onrender.com/todos/${arg.id}`, {
       token: currentUser.token,
       _id: arg.id,
       title: arg?.title,
@@ -73,7 +73,7 @@ export default function TodoProvider({ children }) {
 
   async function toggleTodo(arg) {
     setLoading(true);
-    await axios.put(`https://nnorbert09-todo.herokuapp.com/todos/${arg.id}`, {
+    await axios.put(`https://todo-backend-v20t.onrender.com/todos/${arg.id}`, {
       _id: arg.id,
       completed: arg.completed,
       token: currentUser.token,
